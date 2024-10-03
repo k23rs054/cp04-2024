@@ -190,8 +190,13 @@
 
     // ButtonBがクリックされた時の処理
     function btnBClick(e){
-        active = false;
-        $("#btnA").prop("disabled", false);
+        if(active){
+            active = false;
+            $("#btnA").prop("disabled", false);
+        }else{
+            active = true;
+            $("#btnA").prop("disabled", true);
+        }
     }
 
     // ButtonCがクリックされた時の処理
@@ -209,8 +214,10 @@
         if(active){
             etime = parseInt((new Date() - startTime)/1000);
             rest = period - etime;
+            var m = parseInt(rest/60);
+            var s = parseInt(rest - m*60);
             $("#time").html("経過時間: " + etime);
-            $("#remain").html("残り時間: " + rest);
+            $("#remain").html("残り時間: " + m + ":" + s);
             analog(rest);
             if(rest <= 0){
                 active = false;
