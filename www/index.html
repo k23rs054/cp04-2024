@@ -152,6 +152,7 @@
     // 変数宣言
     var active = false;
     var startTime = 0;
+    var stopTime = 0;
     var period = 0;
     var rest = 0;
     var etime = 0;
@@ -190,13 +191,8 @@
 
     // ButtonBがクリックされた時の処理
     function btnBClick(e){
-        if(active){
-            active = false;
-            $("#btnA").prop("disabled", false);
-        }else{
-            active = true;
-            $("#btnA").prop("disabled", true);
-        }
+        active = false;
+        $("#btnA").prop("disabled", false);
     }
 
     // ButtonCがクリックされた時の処理
@@ -238,7 +234,7 @@
 
     <div id="remain">Remaining time</div>
     <div id="time">Time</div>
-    <button id="btnA">ButtonA</button>  
+    <button id="btnA">Start</button>  
     <button id="btnB">ButtonB</button>  
     <button id="btnC">ButtonC</button>  
     <input type="number" id="minute" value=3 >
