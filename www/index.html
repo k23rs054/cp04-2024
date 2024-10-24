@@ -18,6 +18,7 @@
     $(function(){
         setInterval(function(){
             timer();
+            timer2();
         },500);
     });  
       
@@ -156,6 +157,17 @@
     var period = 0;
     var rest = 0;
     var etime = 0;
+    var lock = 0;
+    var sum = 0;
+
+    var active2 = false;
+    var startTime2 = 0;
+    var stopTime2 = 0;
+    var period2 = 0;
+    var rest2 = 0;
+    var etime2 = 0;
+    var lock2 = 0;
+    var sum2 = 0;
 
 
     
@@ -184,24 +196,36 @@
     // ButtonAがクリックされた時の処理
     function btnAClick(e){
         active = true;
-        startTime = new Date();
+        active2 = false;
+        if(sum == 0){
+            startTime = new Date();
+        }
         $("#btnA").prop("disabled", true);
         $("#btnB").prop("disabled", false);
+        sum2 += etime2;
     }
 
     // ButtonBがクリックされた時の処理
     function btnBClick(e){
         active = false;
+        active2 = true;
+        if(sum2 == 0){
+            startTime2 = new Date();
+        }
         $("#btnA").prop("disabled", false);
+        $("#btnB").prop("disabled", true);
+        sum+= etime;
     }
 
     // ButtonCがクリックされた時の処理
     function btnCClick(e){
         //alarm();
         active = false;
+        active2 = false;
         period = 60*parseInt($("#minute").val()) + parseInt($("#second").val());
-        $("#time").html("経過時間：０");
-        $("#remain").html("残り時間： " + period);
+        period2 = 60*parseInt($("#minute").val()) + parseInt($("#second").val());
+        $("#time").html("残り時間： " + period);
+        $("#remain").html("残り時間： " + period2);
         $("#btnA").prop("disabled", false);
         $("#btnB").prop("disabled", false);
     }
@@ -210,21 +234,36 @@
     // 繰り返し実行する処理
     function timer(){ 
         if(active){
-            etime = parseInt((new Date() - startTime)/1000);
+            etime = parseInt((new Date() - startTime)/1000)  - sum;
             rest = period - etime;
             var m = parseInt(rest/60);
             var s = parseInt(rest - m*60);
-            $("#time").html("経過時間: " + etime);
-            $("#remain").html("残り時間: " + m + ":" + s);
+            $("#time").html("残り時間: " + rest);
             analog(rest);
             if(rest <= 0){
                 active = false;
                 alarm();
                 $("#btnA").prop("disabled", false);
-                $("#btnB").prop("disabled", true);
+                $("#btnB").prop("disabled", false);
             }
         }
-    } 
+    }
+    function timer2(){ 
+        if(active2){
+            etime2 = parseInt((new Date() - startTime2)/1000) - sum2;
+            rest2 = period2 - etime2;
+            var m = parseInt(rest2/60);
+            var s = parseInt(rest2 - m*60);
+            $("#remain").html("残り時間: " + rest2);
+            analog(rest2);
+            if(rest2 <= 0){
+                active = false;
+                alarm();
+                $("#btnA").prop("disabled", false);
+                $("#btnB").prop("disabled", false);
+            }
+        }
+    }
 
   </script>
 </head>
