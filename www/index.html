@@ -142,7 +142,6 @@
         var m = parseInt((rest-h*3600)/60);
         var s = parseInt(rest-h*3600-m*60);
         clock(h,m,s,true);
-
     }
 
 
@@ -194,6 +193,22 @@
     }
     // ButtonAがクリックされた時の処理
     function btnAClick(e) {
+        $("#minuteStr").html("あなたの番です");
+        $("#secondStr").html("");
+        $("#time").css({
+                "font-weight": "bold"
+        });
+        $("#remain").css({
+                "font-weight": "normal"
+        });
+        $("#btnA").css({
+               "background-color": "yellow",
+               "color": "green"
+        });
+        $("#btnB").css({
+               "background-color": "blue",
+               "color": "white"
+        });
         if (!active && !active2) { 
             startTime = new Date(); 
         } else {
@@ -209,6 +224,22 @@
 
     // ButtonBがクリックされた時の処理
     function btnBClick(e) {
+        $("#secondStr").html("あなたの番です");
+        $("#minuteStr").html("");
+        $("#remain").css({
+                "font-weight": "bold"
+        });
+        $("#time").css({
+                "font-weight": "normal"
+        });
+        $("#btnB").css({
+               "background-color": "yellow",
+               "color": "green"
+        });
+        $("#btnA").css({
+               "background-color": "blue",
+               "color": "white"
+        });
         if (!active && !active2) {
             startTime2 = new Date(); 
         } else {
@@ -224,6 +255,8 @@
 
     // ButtonCがクリックされた時の処理
     function btnCClick(e){
+        $("#secondStr").html("");
+        $("#minuteStr").html("");
         //alarm();
         active = false;
         active2 = false;
@@ -249,6 +282,7 @@
             analog(rest);
             if(rest <= 0){
                 active = false;
+                active2 = false;                
                 alarm();
                 $("#btnA").prop("disabled", false);
                 $("#btnB").prop("disabled", false);
@@ -265,6 +299,7 @@
             analog(rest2);
             if(rest2 <= 0){
                 active = false;
+                active2 = false;
                 alarm();
                 $("#btnA").prop("disabled", false);
                 $("#btnB").prop("disabled", false);
@@ -277,8 +312,8 @@
 <body>
     <canvas id="mycanvas" width="200" height="200">Test</canvas>
 
-    <div id="minuteStr">〇</div>
-    <div id="secondStr">〇</div>
+    <div id="minuteStr"></div>
+    <div id="secondStr"></div>
 
     <div id="remain">Remaining time</div>
     <div id="time">Time</div>

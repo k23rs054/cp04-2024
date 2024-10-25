@@ -3,16 +3,14 @@
         color: #ff0000;
         font-size: 20px;
         text-align: left;
-        position:absolute; top:210px; 
-        left:10px; right:10px;
+        position:absolute; top:250px; left:75%; transform: translateX(-50%); width:150px; height:40px;
     }
     
     #secondStr {
         color: #ff0000;
-        font-size: 10px;
+        font-size: 20px;
         text-align: left;
-        position:absolute; top:250px; 
-        left:10px; right:10px;
+        position:absolute; top:250px; left:25%; transform: translateX(-50%); width:150px; height:40px;
         overflow-wrap: break-word;
     }
 
