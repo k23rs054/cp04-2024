@@ -58,7 +58,7 @@
             return x.toString(10);
         }
     }
-    
+ 
     function dec02(x) {
         var str = "0"+x.toString(10);
         return str.substring(str.length-2);        
@@ -192,29 +192,34 @@
         audio.src = "pin.wav";
         audio.play();
     }
-    
     // ButtonAがクリックされた時の処理
-    function btnAClick(e){
+    function btnAClick(e) {
+        if (!active && !active2) { 
+            startTime = new Date(); 
+        } else {
+            stopTime2 = new Date();
+            period2 -= parseInt((stopTime2 - startTime2) / 1000); 
+        }
         active = true;
         active2 = false;
-        if(sum == 0){
-            startTime = new Date();
-        }
+        startTime = new Date();
         $("#btnA").prop("disabled", true);
         $("#btnB").prop("disabled", false);
-        sum2 += etime2;
     }
 
     // ButtonBがクリックされた時の処理
-    function btnBClick(e){
-        active = false;
-        active2 = true;
-        if(sum2 == 0){
-            startTime2 = new Date();
+    function btnBClick(e) {
+        if (!active && !active2) {
+            startTime2 = new Date(); 
+        } else {
+            stopTime = new Date();
+            period -= parseInt((stopTime - startTime) / 1000);
         }
+        active2 = true;
+        active = false;
+        startTime2 = new Date();
         $("#btnA").prop("disabled", false);
         $("#btnB").prop("disabled", true);
-        sum+= etime;
     }
 
     // ButtonCがクリックされた時の処理
@@ -222,6 +227,8 @@
         //alarm();
         active = false;
         active2 = false;
+        sum = 0;
+        sum2 = 0;
         period = 60*parseInt($("#minute").val()) + parseInt($("#second").val());
         period2 = 60*parseInt($("#minute").val()) + parseInt($("#second").val());
         $("#time").html("残り時間： " + period);
@@ -234,7 +241,7 @@
     // 繰り返し実行する処理
     function timer(){ 
         if(active){
-            etime = parseInt((new Date() - startTime)/1000)  - sum;
+            etime = parseInt((new Date() - startTime)/1000);
             rest = period - etime;
             var m = parseInt(rest/60);
             var s = parseInt(rest - m*60);
@@ -250,7 +257,7 @@
     }
     function timer2(){ 
         if(active2){
-            etime2 = parseInt((new Date() - startTime2)/1000) - sum2;
+            etime2 = parseInt((new Date() - startTime2)/1000);
             rest2 = period2 - etime2;
             var m = parseInt(rest2/60);
             var s = parseInt(rest2 - m*60);
